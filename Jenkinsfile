@@ -21,17 +21,18 @@ pipeline {
         }
 
         stage('Frontend Build (Angular)') {
-  steps {
-    dir('gmao-angular') {
-      sh '''
-        set -eux
-        npm ci
-        # Passe l'option au script via "--"
-        npm run build -- --configuration production
-      '''
+    steps {
+        dir('gmao-angular') {
+            sh '''
+                echo "📁 Position actuelle :"
+                pwd && ls -la
+                npm ci
+                npx -y @angular/cli@20 build --configuration production
+            '''
+        }
     }
-  }
 }
+
 
 
 
