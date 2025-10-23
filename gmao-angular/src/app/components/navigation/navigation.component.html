@@ -1,0 +1,64 @@
+<div class="navigation-container" [class.sidebar-expanded]="sidebarExpanded">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="logo-container">
+      <span class="logo"></span>
+      <button class="toggle-btn" (click)="toggleSidebar()">
+        <i class="fas" [class.fa-bars]="!sidebarExpanded" [class.fa-times]="sidebarExpanded"></i>
+      </button>
+    </div>
+
+    <ul class="nav-links">
+      <li *ngFor="let item of visibleMenu">
+        <a (click)="navigateTo(item.route)" [class.active]="isActive(item.route)">
+          <i [class]="item.icon"></i>
+          <span *ngIf="sidebarExpanded">{{ item.label }}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Content area -->
+  <div class="content-area">
+    <nav class="top-navbar">
+      <div class="search-container">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Rechercher..." />
+      </div>
+
+      <div class="navbar-right">
+        <div class="user-profile" (click)="toggleProfileMenu(); $event.preventDefault(); $event.stopPropagation()">
+          <div class="avatar">{{ userInitials }}</div>
+          <span class="username">{{ username }}</span>
+          <i class="fas fa-chevron-down"></i>
+
+          <div class="profile-dropdown" *ngIf="profileMenuOpen" (click)="$event.stopPropagation()">
+            <div class="profile-header">
+              <div class="avatar large">{{ userInitials }}</div>
+              <div class="user-info">
+                <h4>{{ username }}</h4>
+                <p>{{ userEmail }}</p>
+              </div>
+            </div>
+            <ul>
+              <li><a (click)="$event.preventDefault(); openProfileModal()"><i class="fas fa-user"></i> Mon profil</a></li>
+              <li><a (click)="$event.preventDefault(); navigateTo('/settings')"><i class="fas fa-cog"></i> Paramètres</a></li>
+              <li><a (click)="$event.preventDefault(); logout()"><i class="fas fa-sign-out-alt"></i> Déconnexion</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 👉 c'est ICI que les pages s'affichent -->
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+  <!-- Profile Modal -->
+  <app-profile-modal
+    [isOpen]="showProfileModal"
+    (closeModal)="closeProfileModal()">
+  </app-profile-modal>
+</div>

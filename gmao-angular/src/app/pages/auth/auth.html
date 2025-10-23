@@ -1,0 +1,31 @@
+<div class="container">
+  <!-- Login form with ring animation -->
+  <div class="ring">
+    <i style="--clr:#00ff0a;"></i>
+    <i style="--clr:#ff0057;"></i>
+    <i style="--clr:#fffd44;"></i>
+    <div class="login">
+      <h2>Login</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+        <div class="inputBx">
+          <input type="text" placeholder="Username or Email" formControlName="username">
+        </div>
+        <div class="inputBx">
+          <input type="password" placeholder="Password" formControlName="password">
+        </div>
+
+        <div class="error-message" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+
+        <div class="inputBx">
+          <input type="submit" [value]="isLoading ? 'Connexion...' : 'Sign in'" [disabled]="loginForm.invalid || isLoading">
+        </div>
+
+        <div class="links">
+          <a href="#" id="forgot-button">Forget Password</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

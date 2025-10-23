@@ -1,0 +1,90 @@
+<section class="space-y-6" style="padding:20px">
+  <h1 class="text-2xl font-semibold" style="font-size:22px;margin:0 0 16px">Planification</h1>
+
+  <!-- Carte formulaire -->
+  <div class="bg-white rounded-xl p-5 shadow-sm space-y-4" style="background:#fff;border-radius:12px;padding:16px;box-shadow:0 3px 10px rgba(0,0,0,.05);margin-bottom:16px">
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-end" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;align-items:end">
+      <!-- Équipement -->
+      <div>
+        <label class="text-sm font-medium">Équipement</label>
+        <select [(ngModel)]="form.equipmentId" class="w-full mt-1 px-3 py-2 border rounded-lg"
+                style="width:100%;margin-top:6px;padding:8px 10px;border:1px solid #e3e3e7;border-radius:8px">
+          <option [ngValue]="''">Choisir…</option>
+          <option *ngFor="let e of equipments" [ngValue]="e._id">{{ e.name }}</option>
+        </select>
+      </div>
+
+      <!-- Fréquence -->
+      <div>
+        <label class="text-sm font-medium">Fréquence</label>
+        <select [(ngModel)]="form.frequency" class="w-full mt-1 px-3 py-2 border rounded-lg"
+                style="width:100%;margin-top:6px;padding:8px 10px;border:1px solid #e3e3e7;border-radius:8px">
+          <option [ngValue]="''">Choisir…</option>
+          <option *ngFor="let f of frequencies" [ngValue]="f">{{ labels[f] }}</option>
+        </select>
+      </div>
+
+      <!-- Prochaine date -->
+      <div>
+        <label class="text-sm font-medium">Prochaine date</label>
+        <input type="date" [(ngModel)]="form.nextDate" class="w-full mt-1 px-3 py-2 border rounded-lg"
+               style="width:100%;margin-top:6px;padding:8px 10px;border:1px solid #e3e3e7;border-radius:8px" />
+      </div>
+
+      <!-- Actions -->
+      <div class="md:col-span-2 flex gap-2" style="display:flex;gap:8px;align-items:center">
+        <button (click)="save()" class="px-4 py-2 rounded-lg text-white bg-indigo-600 hover:bg-indigo-700"
+                style="padding:8px 14px;border-radius:10px;background:#3a36db;color:#fff;border:none;cursor:pointer">
+          {{ editId ? 'Mettre à jour' : 'Ajouter' }}
+        </button>
+        <button *ngIf="editId" (click)="reset()" class="px-3 py-2 rounded-lg border"
+                style="padding:8px 14px;border-radius:10px;border:1px solid #e3e3e7;background:#fff;cursor:pointer">
+          Annuler
+        </button>
+        <button (click)="runDue()" class="ml-auto px-4 py-2 rounded-lg text-white bg-emerald-600 hover:bg-emerald-700"
+                style="margin-left:auto;padding:8px 14px;border-radius:10px;background:#10b981;color:#fff;border:none;cursor:pointer">
+          Exécuter planifs dues
+        </button>
+      </div>
+    </div>
+
+    <p *ngIf="msgOk" class="text-sm text-emerald-600" style="color:#059669">{{ msgOk }}</p>
+    <p *ngIf="msgErr" class="text-sm text-rose-600" style="color:#e11d48">{{ msgErr }}</p>
+  </div>
+
+  <!-- Carte liste -->
+  <div class="bg-white rounded-xl p-5 shadow-sm overflow-hidden" style="background:#fff;border-radius:12px;padding:16px;box-shadow:0 3px 10px rgba(0,0,0,.05)">
+    <table class="w-full text-sm" style="width:100%;border-collapse:collapse">
+      <thead class="bg-gray-50 text-left">
+      <tr style="background:#f5f5f9;text-align:left">
+        <th class="px-6 py-3" style="padding:10px 12px">Équipement</th>
+        <th class="px-6 py-3" style="padding:10px 12px">Fréquence</th>
+        <th class="px-6 py-3" style="padding:10px 12px">Prochaine date</th>
+        <th class="px-6 py-3 w-40 text-right" style="padding:10px 12px;width:160px;text-align:right">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let p of list; trackBy: trackById" class="border-t" style="border-top:1px solid #eee">
+        <td class="px-6 py-3" style="padding:10px 12px">{{ nameOf(p.equipmentId) }}</td>
+        <td class="px-6 py-3" style="padding:10px 12px">{{ labels[p.frequency] || p.frequency }}</td>
+        <td class="px-6 py-3" style="padding:10px 12px">{{ formatDate(p.nextDate) }}</td>
+        <td class="px-6 py-3 text-right" style="padding:10px 12px;text-align:right">
+          <button (click)="edit(p)" class="px-3 py-1 rounded-lg border mr-2"
+                  style="padding:6px 10px;border-radius:8px;border:1px solid #e3e3e7;background:#fff;cursor:pointer;margin-right:8px">
+            Modifier
+          </button>
+          <button (click)="remove(p)" class="px-3 py-1 rounded-lg text-white bg-rose-600 hover:bg-rose-700"
+                  style="padding:6px 10px;border-radius:8px;background:#ef4444;color:#fff;border:none;cursor:pointer">
+            Suppr.
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="list.length === 0">
+        <td class="px-6 py-8 text-center text-gray-500" colspan="4" style="padding:16px 12px;text-align:center;color:#666">
+          Aucune planification pour le moment.
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

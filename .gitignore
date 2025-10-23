@@ -1,0 +1,26 @@
+# Node / monorepo
+node_modules/
+npm-debug.log*
+yarn.lock
+pnpm-lock.yaml
+
+# Angular
+/.angular/cache
+gmao-angular/dist/
+gmao-angular/.env
+
+# NestJS
+gmao-nest/dist/
+gmao-nest/.env
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+
+# Coverage / reports
+coverage/
+reports/
+
+# Logs
+*.log

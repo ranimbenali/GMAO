@@ -1,0 +1,213 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Quicksand", sans-serif;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #fff;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.ring {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.ring i {
+  position: absolute;
+  inset: 0;
+  border: 2px solid #000;
+  transition: 0.5s;
+}
+
+.ring i:nth-child(1) {
+  border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+  animation: animate 6s linear infinite;
+}
+
+.ring i:nth-child(2) {
+  border-radius: 41% 44% 56% 59%/38% 62% 63% 37%;
+  animation: animate 4s linear infinite;
+}
+
+.ring i:nth-child(3) {
+  border-radius: 41% 44% 56% 59%/38% 62% 63% 37%;
+  animation: animate2 10s linear infinite;
+}
+
+.ring:hover i {
+  border: 6px solid var(--clr);
+  filter: drop-shadow(0 0 20px var(--clr));
+}
+
+@keyframes animate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes animate2 {
+  0% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.login {
+  position: absolute;
+  width: 300px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.login h2 {
+  font-size: 2em;
+  color: #000;
+}
+
+.login .inputBx {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.login .inputBx input {
+  position: relative;
+  width: 100%;
+  padding: 12px 20px;
+  background: transparent;
+  border: 2px solid #000;
+  border-radius: 40px;
+  font-size: 1.2em;
+  color: #000;
+  box-shadow: none;
+  outline: none;
+}
+
+.login .inputBx input[type="submit"] {
+  width: 100%;
+  background: #0078ff;
+  background: linear-gradient(45deg, #ff357a, #fff172);
+  border: none;
+  cursor: pointer;
+}
+
+.login .inputBx input[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.login .inputBx input::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.login .links {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.login .links a {
+  color: #000;
+  text-decoration: none;
+}
+
+/* Error message styling */
+.error-message {
+  color: #ff5757;
+  background-color: rgba(255, 87, 87, 0.1);
+  border: 1px solid #ff5757;
+  border-radius: 20px;
+  padding: 8px 15px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 0.9em;
+  width: 100%;
+}
+
+/* Signup form styling */
+.signup-ring {
+  position: absolute;
+  transform: translateX(200%);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.6s ease-in-out, opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+}
+
+/* Animation classes for toggling between login and signup */
+.bounceLeft {
+  animation: bounceLeft 1s forwards;
+}
+
+.bounceRight {
+  animation: bounceRight 1s forwards;
+}
+
+@keyframes bounceLeft {
+  0% {
+    transform: translateX(200%);
+    opacity: 0;
+    visibility: hidden;
+  }
+  50% {
+    transform: translateX(-30px);
+    opacity: 0.5;
+    visibility: visible;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@keyframes bounceRight {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+  }
+  50% {
+    transform: translateX(230px);
+    opacity: 0.5;
+    visibility: visible;
+  }
+  100% {
+    transform: translateX(200%);
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Form styles */
+form {
+  width: 100%;
+}
+

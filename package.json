@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@nestjs/common": "^11.1.6",
+    "@nestjs/config": "^4.0.2",
+    "@nestjs/core": "^11.1.6",
+    "@nestjs/schedule": "^6.0.0",
+    "openai": "^6.2.0"
+  }
+}

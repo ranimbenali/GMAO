@@ -1,0 +1,70 @@
+<div class="page">
+  <h2>Utilisateurs de l’entreprise</h2>
+
+  <div class="card">
+    <form class="grid" [formGroup]="form" (ngSubmit)="add()">
+      <div>
+        <label>Nom</label>
+        <input type="text" formControlName="name" placeholder="Nom complet" />
+      </div>
+
+      <div>
+        <label>Email</label>
+        <input type="email" formControlName="email" placeholder="email@exemple.com" />
+      </div>
+
+      <div>
+        <label>Rôle</label>
+        <select formControlName="role">
+          <option *ngFor="let r of roles" [ngValue]="r">{{ roleLabel(r) }}</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Mot de passe (optionnel)</label>
+        <input type="text" formControlName="password" placeholder="laisser vide pour auto" />
+      </div>
+
+      <div class="actions">
+        <button class="btn-primary" type="submit" [disabled]="form.invalid || saving">
+          {{ saving ? 'Ajout…' : 'Ajouter' }}
+        </button>
+      </div>
+    </form>
+
+    <div class="error" *ngIf="errorMsg">{{ errorMsg }}</div>
+  </div>
+
+  <div class="card table">
+    <table>
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Email</th>
+          <th>Rôle</th>
+          <th style="width:220px;">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngIf="loading">
+          <td colspan="4">Chargement…</td>
+        </tr>
+
+        <tr *ngIf="!loading && users.length === 0">
+          <td colspan="4">Aucun utilisateur.</td>
+        </tr>
+
+        <tr *ngFor="let u of users">
+          <td>{{ u.name }}</td>
+          <td>{{ u.email }}</td>
+          <td>{{ roleLabel(u.role) }}</td>
+          <td class="row-actions">
+            <button class="btn-secondary" (click)="updatePwd(u)">Mettre à jour le mot de passe</button>
+            <button class="btn-danger" (click)="remove(u)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
